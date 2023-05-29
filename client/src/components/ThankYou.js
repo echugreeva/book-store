@@ -5,7 +5,7 @@ const ThankYou = ()=> {
     return (
         <div>
             <p>Congrats {form.name}</p>
-            <p>Your order number:x</p>
+            <p>Your order number:{form.order}</p>
             <p>We'll be in touch with you soon</p>
 
         </div>

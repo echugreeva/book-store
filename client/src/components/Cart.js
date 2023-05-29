@@ -5,15 +5,13 @@ import { useNavigate } from 'react-router-dom'
 const Cart = () => {
     const {book, setBook, cart, setCart}=useContext(AppContext)
     const [sum, setSum] = useState(0)
-    const [localCart, setLocal] = useState( [...new Set(cart)])
-    const [quantity,setQuantity] = useState([])
+    // const [localCart, setLocal] = useState( [...new Set(cart)])
+    // const [quantity,setQuantity] = useState([])
     const navigate =useNavigate()
     
     useEffect(()=>{
-        const total=cart.reduce((acc,curr)=>acc + curr.price,0)
+        const total=cart.reduce((acc,curr)=>acc + curr.price * curr.quantity,0)
         setSum(total)
-        const bookquantity = localCart.map(value => [value.id, cart.filter(str => str === value).length]);
-        setQuantity(bookquantity)
     },[cart])
 
    
@@ -30,19 +28,34 @@ const Cart = () => {
     return (
         <div>
             {
-                localCart.map(book=>{
-                   console.log(quantity)
-                    // 
+                cart.map(book=>{
+             
                     return(
                         <div key={book.id}>
-                            {book.name}
+                            
+                            {book.name} 
                             <p>price: ${book.price}</p>
-                            <p>quantity: {quantity.filter(e=>e[0] === book.id
-            
-                            )}</p>
+                              <div>
+                                {book.quantity}
+                                
+                             </div>  
+
+                            
                             <button
                                 onClick={()=> {
-                                        setCart(cart.filter(e=>e.id !== book.id))
+                                        // if (book.quantity = 1){
+                                        //     setCart(cart.filter(e=>e.id !== book.id)) 
+                                        // }
+                                        
+                                        // else {
+                                            const newCart = cart.map(e=> {
+                                                if (e=>e.id===book.id) {
+                                                    return {...e, quantity: e.quantity-1}
+                                                }  return e
+                                            })
+                    
+                                        setCart(newCart)
+                                        // }
                                     }
                                 }
                             >delete</button>

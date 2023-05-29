@@ -4,7 +4,7 @@ import { AppContext } from '../App'
 const Book = () => {
     const {book, setBook, cart, setCart}=useContext(AppContext)
     return (
-        <div>
+        <div key = {book.id}>
             <h2>{book.name}</h2>
             <p>by: {book.author}</p>
             <p> {book.stars} by {book.ratings}</p>
@@ -19,7 +19,19 @@ const Book = () => {
             <p>{book.price}</p>
             <button
             onClick={()=>{
-                setCart([...cart, book])
+                if (cart.filter(e=>e.id===book.id).length > 0) {
+                    const newCart = cart.map(e=> {
+                            if (e=>e.id===book.id) {
+                                return {...e, quantity: e.quantity+1}
+                            }  return e
+                        })
+
+                    setCart(newCart)
+                } else {
+                    setCart([...cart, {...book, quantity: 1}])
+                }
+               
+
             }}
             >add to cart</button>
         </div>

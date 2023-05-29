@@ -6,6 +6,10 @@ const Form =()=> {
     const {setForm}=useContext(AppContext)
     const [input, setInput]=useState({})
     const navigate=useNavigate()
+    const generateOrderNumber = () => {
+        const result = Math.random().toString(36).substring(2,7)
+        return result
+    }
 
     return  (
         <div>
@@ -33,7 +37,8 @@ const Form =()=> {
                 </input>
                 <button
                 onClick={()=>{
-                    setForm(input)
+                    
+                    setForm({...input, order: generateOrderNumber() })
                     navigate('/thankyou')
                 }
                 }

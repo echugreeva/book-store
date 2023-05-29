@@ -14,7 +14,7 @@ const Nav = () => {
                 }}
             >
                 <img style={{height: '100px'}}  src="https://static.vecteezy.com/system/resources/previews/004/999/463/original/shopping-cart-icon-illustration-free-vector.jpg"></img>
-                <p>{cart.length}</p>
+                <p>{cart.reduce((acc,curr)=>acc + curr.quantity,0)}</p>
             </div>
         </div>
     )

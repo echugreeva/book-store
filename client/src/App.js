@@ -1,5 +1,6 @@
 import {createContext, useState} from 'react'
 import {Routes, Route} from 'react-router-dom'
+
 import Nav from './components/Nav'
 import Home from './components/Home'
 import StorePage from './components/StorePage'
@@ -31,3 +32,5 @@ function App() {
 }
 
 export default App;
+
+

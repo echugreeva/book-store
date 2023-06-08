@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {Container,PurpleButton} from '../App'
 import {BookCard,BookCardRow} from './StorePage'
 import {useNavigate} from 'react-router-dom'
+import Rating from './Rating'
 
 const Book = () => {
     const {book, setBook, cart, setCart}=useContext(AppContext)
@@ -19,7 +20,8 @@ const Book = () => {
                 <div key = {book.id}>
                     <h2>Name{book.name}</h2>
                     <p>by: {book.author}</p>
-                    <p> Rating: {book.stars}/5 by {book.ratings} users</p>
+                    <Rating times={book.stars}/>
+                    <span> by {book.ratings} users</span>
                     <p>Description:{book.description}</p>
                     <h3>Product details</h3>
                     <p>{book.language}</p>

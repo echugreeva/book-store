@@ -22,7 +22,7 @@ const StorePage = () => {
                             <BookCardRow>
                                 <img 
                                 style={{height: '100px'}}
-                                src='https://img.freepik.com/premium-vector/stack-books_119631-472.jpg?w=2000'
+                                src='https://www.frontlist.in/storage/post/1653642722_photo-1630343710506-89f8b9f21d31.jpg'
                                 onClick={()=>{
                                     setBook(el)
                                     navigate('/book')

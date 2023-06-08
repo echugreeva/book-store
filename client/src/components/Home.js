@@ -18,6 +18,7 @@ const Home = () => {
                 stores.map((item, i) => {
                     return (
                         <StoreCard key={i}>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNedE5sJ5R9cBowmWJBuCnRaVkWAsUuK_gWg&usqp=CAU"></img>
                             <p>{item}</p>
                            
                             <PurpleButton 

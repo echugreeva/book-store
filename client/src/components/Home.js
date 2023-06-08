@@ -1,17 +1,32 @@
-import stores from '../stores.json'
+// import stores from '../stores.json'
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
+import {useState, useContext} from 'react'
+import {Container,PurpleButton} from '../App'
+import books from '../books.json'
+import { AppContext } from '../App'
 
 const Home = () => {
+    const navigate = useNavigate()
+   
+    const [stores, setStores] = useState([...new Set(books.books.map(e=>e.store_id))])
+    const {storeId, setStoreId}=useContext(AppContext)
+
     return (
         <Container>
             {
-                stores.stores.map((store, i) => {
+                stores.map((item, i) => {
                     return (
                         <StoreCard key={i}>
-                            <p>{store.name}</p>
-                            <p>{store.address}</p>
-                            <Link to ='/store'><button>Go to store</button></Link>
+                            <p>{item}</p>
+                           
+                            <PurpleButton 
+                                onClick={()=>{
+                                setStoreId(item)
+                                navigate('/store')
+                                }}
+                            
+                            >Go to store</PurpleButton>
 
 
                         </StoreCard>
@@ -24,12 +39,12 @@ const Home = () => {
 
 export default Home 
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin: 0 auto;
-`;
+// const Container = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-around;
+//   margin: 0 auto;
+// `;
 
 const StoreCard = styled.div`
 width: 300px;

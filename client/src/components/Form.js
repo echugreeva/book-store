@@ -1,9 +1,11 @@
 import {useContext,useState } from 'react'
 import { AppContext } from '../App' 
 import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import {PurpleButton} from '../App' 
 
 const Form =()=> {
-    const {setForm}=useContext(AppContext)
+    const {setForm, setCart}=useContext(AppContext)
     const [input, setInput]=useState({})
     const navigate=useNavigate()
     const generateOrderNumber = () => {
@@ -12,41 +14,61 @@ const Form =()=> {
     }
 
     return  (
-        <div>
-            <form>
-                <input type='text' placeholder='full name'
+        <FormContainer>
+            
+                <FormField type='text' placeholder='full name'
                 onChange={
                     (e)=>setInput({...input, name:e.target.value})
                 }
                 >
                     
-                </input>
-                <input type='text' placeholder='address'
+                </FormField>
+                <FormField type='text' placeholder='address'
                 onChange={
                     (e)=>setInput({...input, address:e.target.value})
                 }
                 >
 
-                </input>
-                <input type='phone' placeholder='phone'
+                </FormField>
+                <FormField type='phone' placeholder='phone'
                 onChange={
                     (e)=>setInput({...input, phone:e.target.value})
                 }
                 >
 
-                </input>
-                <button
+                </FormField>
+                <PurpleButton
                 onClick={()=>{
-                    
+                    setCart([])
                     setForm({...input, order: generateOrderNumber() })
                     navigate('/thankyou')
                 }
                 }
-                >Buy</button>
-            </form>
-        </div>
+                >Buy</PurpleButton>
+           
+        </FormContainer>
 
     )
 }
 
 export default Form
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FormField = styled.input`
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 300px;
+`;
+
+const SubmitButton = styled.button`
+  padding: 10px 20px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+`;

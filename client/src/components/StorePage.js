@@ -2,69 +2,65 @@ import books from '../books.json'
 import {useContext } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { AppContext } from '../App'
+import styled from 'styled-components'
+import {Container} from '../App'
 
 
 const StorePage = () => {
-    const {book, setBook, cart, setCart}=useContext(AppContext)
+    const {book, setBook, cart, setCart,storeId}=useContext(AppContext)
     const navigate = useNavigate()
-    const handleCart = (id) => {
-        console.log(cart.filter(e=>e.id===id))
-                                if (cart.filter(e=>e.id===id).length > 0) {
-                                   
-                                    console.log(id)
-                                    const newCart = cart.map(e=> {
-                                            if (e=>e.id===id) {
-                                                console.log(e.id)
-                                                console.log(e.quantity)
-                                                return {...e, quantity: e.quantity+1}
-                                            }  return e
-                                        })
-
-                                    setCart(newCart)
-                                    console.log(cart)
-                                } else {
-                                    setCart([...cart, {...book, quantity: 1}])
-                                    console.log(cart)
-                                }
-    }
+    console.log(storeId)
     
     return (
-        <div>
+        
+        <Container>
+            
             {
-                books.books.map((book) => {
+                books.books.filter(e=>e.store_id == storeId).map((el) => {
                     return (
-                        <div key={book.id}>
-                            <div  onClick={()=>{
-                                setBook(book)
-                                navigate('/book')
-                            }}>
-                                <p>{book.name}</p>
-                                <p>{book.author}</p>
+                        <BookCard key={el.id}>
+                            <BookCardRow>
+                                <img 
+                                style={{height: '100px'}}
+                                src='https://img.freepik.com/premium-vector/stack-books_119631-472.jpg?w=2000'
+                                onClick={()=>{
+                                    setBook(el)
+                                    navigate('/book')
+                                }}
                                 
-                                <p>price: ${book.price}</p>
-                            </div>
+                                ></img>
+                                <p>{el.name}</p>
+                                
+                                
+                                
+                            </BookCardRow>
+                            <BookCardRow>
                             <button
                                 onClick={()=>{
-                                console.log(cart.filter(e=>e.id===book.id))
-                                if (cart.filter(e=>e.id===book.id).length > 0) {
-                                    const id = book.id
+                                console.log(cart.filter(e=>e.id===el.id))
+                                if (cart.filter(e=>e.id===el.id).length > 0) {
+                                    const id = el.id
                                     console.log(id)
-                                    const newCart = cart.map(e=> {
-                                            if (e=>e.id===id) {
-                                                console.log(e.id)
-                                                console.log(e.quantity)
-                                                return {...e, quantity: e.quantity+1}
-                                            }  return e
-                                        })
+                                    // const newCart = cart.map(e=> {
+                                    //         if (e=>e.id===id) {
+                                    //             console.log(e.id)
+                                    //             console.log(e.quantity)
+                                    //             return {...e, quantity: e.quantity+1}
+                                    //         }  return e
+                                    //     })
+                                        const newCart = [...cart]
+                                        const objIndex = newCart.findIndex(obj=>obj.id == id)
+                                        newCart[objIndex].quantity ++
 
                                     setCart(newCart)
                                     console.log(cart)
                                 } else {
-                                    setCart([...cart, {...book, quantity: 1}])
-                                    console.log(cart)
+                                    console.log(book)
+                                    setCart([...cart, {...el, quantity: 1}])
+                                    
                                 }
                             
-                    
+                                console.log(cart)
                             }} 
                             >
                                 <img 
@@ -74,13 +70,45 @@ const StorePage = () => {
                                 </img>
                             </button>
                             
-                        </div>
+                            <p>price: ${el.price}</p>
+                            </BookCardRow>
+                            {/* <button
+                            onClick={()=>{
+                                setBook(el)
+                                navigate('/book')
+                            }}
+                            >Info</button>
+                             */}
+                        </BookCard>
                         
                     )
                 })
-            }
-        </div>
+                    
+            }  
+        </Container>
+        
     ) 
 }
 
 export default StorePage
+
+export const BookCard = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+width: 300px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 16px;
+  text-align: center
+`;
+
+export const BookCardRow = styled.div`
+
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+text-align: center
+`;

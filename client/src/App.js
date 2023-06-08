@@ -1,6 +1,6 @@
 import {createContext, useState} from 'react'
 import {Routes, Route} from 'react-router-dom'
-
+import styled from 'styled-components'
 import Nav from './components/Nav'
 import Home from './components/Home'
 import StorePage from './components/StorePage'
@@ -11,11 +11,12 @@ import ThankYou from './components/ThankYou'
 export const AppContext = createContext();
 
 function App() {
+  const [storeId, setStoreId] = useState('')
   const [book, setBook] = useState('')
   const [cart, setCart] = useState([])
   const [form, setForm] = useState('')
   return (
-    <AppContext.Provider value={{book, setBook, cart, setCart,form, setForm}}>
+    <AppContext.Provider value={{book, setBook, cart, setCart,form, setForm,storeId, setStoreId}}>
       <div className="App">
         <Nav/>
         <Routes>
@@ -34,3 +35,24 @@ function App() {
 export default App;
 
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto;
+`;
+
+export const PurpleButton = styled.button`
+  background-color: purple;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #6f42c1;
+  }
+`;
